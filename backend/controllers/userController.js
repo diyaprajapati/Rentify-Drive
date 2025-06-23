@@ -14,7 +14,7 @@ const signinController = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
     }
 
-    // Check password
+    // Compares entered password with hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res
@@ -23,7 +23,8 @@ const signinController = async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id, email: user.email },
+      process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
@@ -60,7 +61,8 @@ const signupController = async (req, res) => {
     await user.save();
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id, email: user.email },
+      process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
@@ -77,6 +79,7 @@ const updateUserProfile = async (req, res) => {
     const { address, mobileNumber } = req.body;
     let drivingLicensePhoto = null;
 
+    // convert in-memory image to base64
     if (req.file) {
       const base64Image = req.file.buffer.toString("base64");
       drivingLicensePhoto = `data:${req.file.mimetype};base64,${base64Image}`;

@@ -54,7 +54,6 @@ const createRental = async (req, res) => {
     });
 
     // Update car availability
-
     await newRental.save();
     res.status(201).json({ success: true, rental: newRental });
   } catch (error) {

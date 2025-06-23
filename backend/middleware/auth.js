@@ -2,17 +2,19 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const authMiddleware = (req, res, next) => {
+  // token verification
   const token = req.header("Authorization");
 
-  // console.log(token);
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });
   }
-  // console.log(token);
 
   try {
+    // extract and verify the token
     const onlyToken = token.split(" ")[1];
     const decoded = jwt.verify(onlyToken, JWT_SECRET);
+
+    // attach user info to req.user
     req.user = { userId: decoded.userId, role: decoded.role };
     next();
   } catch (err) {
