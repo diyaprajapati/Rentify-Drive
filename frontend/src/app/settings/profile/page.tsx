@@ -57,16 +57,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
+    <div >
+      < Suspense fallback={< div > Loading...</div >}>
         <div className="space-y-6">
-          <div>
-            <h3 className="text-lg font-medium">Profile</h3>
-            <p className="text-sm text-muted-foreground">
-              Manage your account settings and set e-mail preferences and more.
-            </p>
-          </div>
-          <Separator />
           <ProfileForm name={user?.name} initialValues={data} />
           <Button
             onClick={() => {
@@ -77,8 +70,8 @@ const Profile = () => {
             Logout
           </Button>
         </div>
-      </Suspense>
-    </>
+      </Suspense >
+    </div >
   );
 };
 export default Profile;

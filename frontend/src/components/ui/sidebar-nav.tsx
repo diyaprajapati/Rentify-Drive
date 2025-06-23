@@ -28,11 +28,11 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           key={item.href}
           href={item.href}
           className={cn(
-            buttonVariants({ variant: "ghost" }),
-            pathname === item.href
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-start"
+            "group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-all",
+            {
+              "bg-purple-800/50 text-white": pathname === item.href,
+              "text-muted-foreground hover:text-white hover:bg-white/10": pathname !== item.href,
+            }
           )}
         >
           {item.title}

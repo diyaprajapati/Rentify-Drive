@@ -67,24 +67,6 @@ export function ProfileForm({ initialValues, name }: ProfileFormProps) {
   });
 
   async function onSubmit(data: ProfileFormValues) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
-    // const sessionToken = await getSessionToken();
-    // if (!sessionToken) {
-    //   push("/signup");
-    // }
-    // const res = await axios.put("http://localhost:3001/users/profile", data, {
-    //   headers: {
-    //     Authorization: `Bearer ${sessionToken}`,
-    //   },
-    // });
-    // console.log(res);
     const formData = new FormData();
     formData.append('address', data.address);
     formData.append('mobileNumber', data.mobileNumber);
@@ -141,92 +123,126 @@ export function ProfileForm({ initialValues, name }: ProfileFormProps) {
     }
     if (initialValues?.file && typeof initialValues.file === "string") {
       const file = base64ToFile(initialValues.file, "uploaded_image.png");
-      form.setValue("file", [file]); // Set file as array with one File object
-      setImagePreview(initialValues.file); // Show the base64 image as preview
+      form.setValue("file", [file]);
+      setImagePreview(initialValues.file);
     }
   }, [initialValues, form]);
 
   return (
-    <Form {...form}>
-      <Suspense fallback={<div>Loading...</div>}>
-      <div>{name ? `Hello! ${name}` : "Hello User"}</div>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="123 Main St, City, Country"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>Please enter your full address.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="mobileNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mobile Number</FormLabel>
-              <FormControl>
-                <Input placeholder="+1234567890" {...field} />
-              </FormControl>
-              <FormDescription>
-                Enter your mobile number with country code.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="file"
-          render={({ field: { value, onChange, ...field } }) => (
-            <FormItem>
-              <FormLabel>Driving License Image</FormLabel>
-              <FormControl>
-                <div className="flex items-center space-x-2">
-                  <ImageIcon className="h-4 w-4" />
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      handleImageChange(e);
-                      onChange(e.target.files);
-                    }}
-                    className="w-fit"
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormDescription>
-                Upload a driving license photo. Max size: 1MB. Formats: .jpg, .png,
-                .gif
-              </FormDescription>
-              <FormMessage />
-              {imagePreview && (
-                <div className="mt-2">
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="max-w-full h-auto rounded-md"
-                  />
-                </div>
-              )}
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Update profile</Button>
-      </form>
-      </Suspense>
-    </Form>
+    <div className="w-full">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Profile Settings
+        </h1>
+        <p className="text-gray-400 mt-2">
+          {name ? `Hello! ${name}` : "Hello User"} - Update your profile information
+        </p>
+      </div>
+
+      <div>
+        <Form {...form}>
+          <Suspense fallback={<div className="text-white">Loading...</div>}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-300 font-semibold">Address</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="123 Main St, City, Country"
+                        className="resize-none bg-white/5 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-500 transition-colors"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription className="text-gray-400">
+                      Please enter your full address.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mobileNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-300 font-semibold">Mobile Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="+1234567890"
+                        className="bg-white/5 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-500 transition-colors"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription className="text-gray-400">
+                      Enter your mobile number with country code.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="file"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-300 font-semibold">Driving License Image</FormLabel>
+                    <FormControl>
+                      <div className="flex items-center space-x-2">
+                        <ImageIcon className="h-4 w-4 text-purple-400" />
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            handleImageChange(e);
+                            onChange(e.target.files);
+                          }}
+                          className="w-fit bg-white/5 border-white/20 text-white file:text-gray-300 file:bg-white/10 file:border-white/20 focus:border-purple-500 transition-colors"
+                          {...field}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormDescription className="text-gray-400">
+                      Upload a driving license photo. Max size: 1MB. Formats: .jpg, .png, .gif
+                    </FormDescription>
+                    <FormMessage />
+                    {imagePreview && (
+                      <div className="mt-4 p-4 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="max-w-full h-auto rounded-md shadow-lg border border-white/20 mb-4"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          className="text-sm px-3 py-1 bg-red-500 hover:bg-red-600"
+                          onClick={() => {
+                            setImagePreview(null);
+                            form.setValue("file", []);
+                          }}
+                        >
+                          Delete Image
+                        </Button>
+                      </div>
+                    )}
+
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-none transition-all duration-300 hover:scale-105 shadow-lg"
+              >
+                Update profile
+              </Button>
+            </form>
+          </Suspense>
+        </Form>
+      </div>
+    </div>
   );
 }
 
