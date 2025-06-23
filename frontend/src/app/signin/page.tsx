@@ -17,6 +17,7 @@ import { GoogleLogin } from "@react-oauth/google"
 import { toast } from "@/hooks/use-toast"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { jwtDecode } from "jwt-decode";
 
 export function LoginForm() {
   const [loginData, setLoginData] = useState(null);
@@ -50,7 +51,7 @@ export function LoginForm() {
 
   useEffect(() => {
     if (loginData) {
-      //@ts-ignore
+      // @ts-ignore
       const decodedUser = jwtDecode(loginData.sessionToken);
       if (decodedUser) {
         push("/home");
