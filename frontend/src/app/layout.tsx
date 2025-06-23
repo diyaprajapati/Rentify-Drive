@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "Rentify Drive - Redefine Your Journey",
   description:
     "Experience the future of car rental with AI-powered matching, luxury vehicles, and seamless booking.",
+  icons: {
+    icon: "/logo.png",
+  },
   authors: [{ name: "Rentify Drive" }],
   openGraph: {
     title: "Rentify Drive - Redefine Your Journey",
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://lovable.dev/opengraph-image-p98pqg.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Rentify Drive Banner",
@@ -36,8 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@lovable_dev",
-    images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
+    images: ["/logo.png"],
   },
 };
 
