@@ -23,7 +23,7 @@ const signinController = async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id, email: user.email },
+    const token = jwt.sign({ userId: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -61,7 +61,7 @@ const signupController = async (req, res) => {
     await user.save();
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id, email: user.email },
+    const token = jwt.sign({ userId: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET, {
       expiresIn: "1h",
     });

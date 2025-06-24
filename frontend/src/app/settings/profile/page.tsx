@@ -64,6 +64,8 @@ const Profile = () => {
           <Button
             onClick={() => {
               googleLogout();
+              localStorage.removeItem("loginData");
+              setUser(null);
               push("/signup");
             }}
           >
