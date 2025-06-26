@@ -20,7 +20,7 @@ import { ChevronRight } from "lucide-react";
 import Particles from "@/components/particles";
 import AnimatedGradientText from "@/components/animated-gradient-text";
 
-export function SignupForm() {
+export default function SignupForm() {
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const [loginData, setLoginData] = useState(null);
   const { push } = useRouter();
@@ -148,5 +148,3 @@ export function SignupForm() {
     </div>
   );
 }
-
-export default SignupForm;

@@ -19,7 +19,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { jwtDecode } from "jwt-decode";
 
-export function LoginForm() {
+export default function LoginForm() {
   const [loginData, setLoginData] = useState(null);
   const { push } = useRouter();
 
@@ -126,5 +126,3 @@ export function LoginForm() {
     </div>
   )
 }
-
-export default LoginForm;
