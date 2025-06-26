@@ -76,7 +76,7 @@ export default function MyRentals() {
     try {
       const token = await getSessionToken();
       const response = await axios.get(
-        "http://localhost:3001/api/rental/user",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental/user`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -98,7 +98,7 @@ export default function MyRentals() {
     try {
       const token = await getSessionToken();
       await axios.put(
-        `http://localhost:3001/api/rental/${selectedRental._id}/payment`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental/${selectedRental._id}/payment`,
         { paymentReferenceNumber: values.paymentReferenceNumber },
         { headers: { Authorization: `Bearer ${token}` } }
       );

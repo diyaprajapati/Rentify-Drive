@@ -82,7 +82,7 @@ export function ProfileForm({ initialValues, name }: ProfileFormProps) {
         return;
       }
 
-      const res = await axios.put("http://localhost:3001/users/profile", formData, {
+      const res = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/profile`, formData, {
         headers: {
           'Authorization': `Bearer ${sessionToken}`,
           'Content-Type': 'multipart/form-data',

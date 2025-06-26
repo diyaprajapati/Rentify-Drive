@@ -94,10 +94,10 @@ export default function CarsPage() {
     const fetchCars = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:3001/api/cars");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cars`);
         const data = await response.json();
         setCars(data.cars);
-        const userres = await fetch("http://localhost:3001/users/profile");
+        const userres = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/profile`);
         const userdata = await userres.json();
         setUser(userdata.user);
       } catch (error) {
@@ -129,7 +129,7 @@ export default function CarsPage() {
 
     try {
       const sessionToken = await getSessionToken();
-      const response = await fetch("http://localhost:3001/api/rental", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

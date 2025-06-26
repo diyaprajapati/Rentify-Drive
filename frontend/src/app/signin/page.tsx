@@ -26,7 +26,7 @@ export default function LoginForm() {
   const handleLogin = async (googleData: any) => {
     try {
       console.log(googleData);
-      const res = await fetch("http://localhost:3001/api/google-login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/google-login`, {
         method: "POST",
         body: JSON.stringify({ token: googleData.credential }),
         headers: { "Content-Type": "application/json" },

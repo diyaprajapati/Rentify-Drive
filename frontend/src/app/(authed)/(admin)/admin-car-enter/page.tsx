@@ -101,7 +101,7 @@ export default function CarAdminDashboard() {
     try {
       setIsLoading(true);
       const token = await getSessionToken();
-      const response = await fetch("http://localhost:3001/api/cars", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cars`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +125,7 @@ export default function CarAdminDashboard() {
   const handleDelete = async (carId: string, carName: string) => {
     try {
       const token = await getSessionToken();
-      const response = await fetch(`http://localhost:3001/api/cars/${carId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cars/${carId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -187,8 +187,8 @@ export default function CarAdminDashboard() {
 
     try {
       const url = selectedCar
-        ? `http://localhost:3001/api/cars/${selectedCar._id}`
-        : "http://localhost:3001/api/cars";
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cars/${selectedCar._id}`
+        : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cars`
       const method = selectedCar ? "PUT" : "POST";
 
       const formDataToSend = new FormData();
@@ -217,7 +217,7 @@ export default function CarAdminDashboard() {
         method,
         body: formDataToSend,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token} `,
         },
       });
 
@@ -271,7 +271,7 @@ export default function CarAdminDashboard() {
       features: car.features.join(", "),
       images: car.images as any,
     });
-    setImagePreviews(car.images.map((image: string) => `${image}`));
+    setImagePreviews(car.images.map((image: string) => `${image} `));
     setIsCreateDialogOpen(true);
   };
 
@@ -462,7 +462,7 @@ export default function CarAdminDashboard() {
                           <img
                             key={index}
                             src={preview}
-                            alt={`Preview ${index + 1}`}
+                            alt={`Preview ${ index + 1 } `}
                             className="w-24 h-24 object-cover rounded-md border border-white/20"
                           />
                         ))}
@@ -474,7 +474,7 @@ export default function CarAdminDashboard() {
                           <div key={index} className="relative group">
                             <img
                               src={preview}
-                              alt={`Preview ${index + 1}`}
+                              alt={`Preview ${index + 1} `}
                               className="w-24 h-24 object-cover rounded-md border border-white/20"
                             />
                             <button
@@ -582,7 +582,7 @@ export default function CarAdminDashboard() {
                                 Cancel
                               </AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => handleDelete(car._id, `${car.make} ${car.model}`)}
+                                onClick={() => handleDelete(car._id, `${car.make} ${car.model} `)}
                                 className="bg-red-500 hover:bg-red-600 text-white"
                               >
                                 Delete

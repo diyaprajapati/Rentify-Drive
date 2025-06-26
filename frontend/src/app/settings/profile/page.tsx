@@ -1,15 +1,11 @@
 "use client";
-import { z } from "zod";
-import { Separator } from "@/components/ui/separator";
 import ProfileForm, { ProfileFormValues } from "./profile-form";
 import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
-import { title } from "process";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { googleLogout } from "@react-oauth/google";
 import { getSessionToken } from "@/lib/utils";
-import { SubscriptIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const Profile = () => {
@@ -26,7 +22,7 @@ const Profile = () => {
     setLoading(true);
     const sessionToken = await getSessionToken();
     try {
-      const res = await axios.get("http://localhost:3001/users/profile", {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/profile`, {
         headers: {
           Authorization: `Bearer ${sessionToken}`,
         },

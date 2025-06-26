@@ -93,10 +93,10 @@ export default function CarRentalDashboard() {
     try {
       const token = await getSessionToken();
       const [dashboardResponse, pendingRentalsResponse] = await Promise.all([
-        axios.get("http://localhost:3001/api/rental/dashboard", {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:3001/api/rental/pending-with-payment", {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental/pending-with-payment`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
