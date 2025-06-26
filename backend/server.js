@@ -18,7 +18,11 @@ const client = new OAuth2Client(CLIENT_ID);
 // Middlewares
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({
+  origin: [process.env.FRONTEND_URL],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Routes
 
@@ -68,8 +72,8 @@ app.get("/", (req, res) => {
 // Server
 const PORT = process.env.PORT || 3001;
 const MONGOOSE_URL =
-  process.env.MONGODB_URL || "mongodb://localhost:27017/rentify-drive";
-console.log(MONGOOSE_URL);
+  process.env.MONGODB_URL;
+// console.log(MONGOOSE_URL);
 
 mongoose
   .connect(MONGOOSE_URL)
