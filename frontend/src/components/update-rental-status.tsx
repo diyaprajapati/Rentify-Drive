@@ -45,7 +45,7 @@ export function UpdateRentalStatus({
     try {
       const token = await getSessionToken();
       await axios.put(
-        `http://localhost:3001/api/rental/${rentalId}/status`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/rental/${rentalId}/status`,
         { status: data.status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
